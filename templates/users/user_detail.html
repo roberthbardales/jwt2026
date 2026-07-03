@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ usuario.first_name }} {{ usuario.last_name }} | Autenticación Django{% endblock %}
+
+{% block content %}
+<div class="flex justify-center">
+    <div class="w-full max-w-2xl">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+            <h1 class="text-lg font-semibold px-6 py-4 border-b border-gray-100">Datos del usuario</h1>
+            <table class="min-w-full divide-y divide-gray-200">
+                <tbody class="divide-y divide-gray-200">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50 w-1/3">Nombre</th>
+                        <td class="px-6 py-3 text-sm text-gray-900">{{ usuario.first_name }} {{ usuario.last_name }}</td>
+                    </tr>
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50">Email</th>
+                        <td class="px-6 py-3 text-sm text-gray-900">{{ usuario.email }}</td>
+                    </tr>
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50">Celular</th>
+                        <td class="px-6 py-3 text-sm text-gray-900">{{ usuario.phone|default:"Sin registrar" }}</td>
+                    </tr>
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50">Ocupación</th>
+                        <td class="px-6 py-3 text-sm text-gray-900">{{ usuario.get_occupation_display|default:"Sin registrar" }}</td>
+                    </tr>
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50">Género</th>
+                        <td class="px-6 py-3 text-sm text-gray-900">{{ usuario.get_gender_display|default:"Sin registrar" }}</td>
+                    </tr>
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50">Fecha de nacimiento</th>
+                        <td class="px-6 py-3 text-sm text-gray-900">{{ usuario.date_birth|default:"Sin registrar" }}</td>
+                    </tr>
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50">Activo</th>
+                        <td class="px-6 py-3 text-sm text-gray-900">{{ usuario.is_active|yesno:"Sí,No" }}</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-3 bg-gray-50" colspan="2">
+                            <div class="flex justify-end gap-3">
+                                <a href="{% url 'app_users:user-edit' usuario.pk %}" class="inline-block px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700">Editar datos</a>
+                                <a href="{% url 'app_users:user-reset-password' usuario.pk %}" class="inline-block px-4 py-2 text-sm bg-yellow-600 text-white rounded-lg hover:bg-yellow-700">Restablecer contraseña</a>
+                                <a href="{% url 'app_users:user-list' %}" class="inline-block px-4 py-2 text-sm bg-gray-600 text-white rounded-lg hover:bg-gray-700">Volver a lista</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

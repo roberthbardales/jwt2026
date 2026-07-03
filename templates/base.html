@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Autenticación Django{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <style>
+        .hero-card {
+            background:
+                radial-gradient(circle at top left, rgba(255, 255, 255, 0.18), transparent 30%),
+                linear-gradient(135deg, #0f172a 0%, #1e3a8a 55%, #2563eb 100%);
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50 text-gray-900">
+    {% include 'include/header.html' %}
+
+    <main class="flex-1 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {% if messages %}
+                <div class="mb-4">
+                    {% for message in messages %}
+                        <div class="border px-4 py-3 rounded-lg mb-2
+                            {% if message.tags == 'error' or message.tags == 'danger' %}bg-red-50 border-red-200 text-red-700
+                            {% elif message.tags == 'success' %}bg-green-50 border-green-200 text-green-700
+                            {% elif message.tags == 'warning' %}bg-yellow-50 border-yellow-200 text-yellow-700
+                            {% elif message.tags == 'info' %}bg-blue-50 border-blue-200 text-blue-700
+                            {% else %}bg-gray-50 border-gray-200 text-gray-700{% endif %}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    {% include 'include/footer.html' %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggler = document.querySelector('[data-toggle="navbar"]');
+            if (toggler) {
+                toggler.addEventListener('click', function() {
+                    var target = document.getElementById(this.dataset.target);
+                    if (target) target.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

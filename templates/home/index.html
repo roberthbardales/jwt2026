@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio | Desarrollo Web{% endblock %}
+
+{% block content %}
+<section class="hero-card p-4 p-lg-5 rounded-2xl text-white shadow-lg mb-4">
+    <div class="flex flex-wrap items-center gap-4">
+        <div class="w-full lg:w-7/12">
+            <span class="inline-block bg-white bg-opacity-90 text-gray-900 text-xs font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full mb-3">Desarrollo de sistemas web</span>
+            <h1 class="text-3xl lg:text-4xl font-bold mb-3">Creamos sistemas web modernos con Django, Python y PostgreSQL.</h1>
+            <p class="text-lg mb-4 text-white text-opacity-90">
+                Construimos soluciones simples y funcionales para tu negocio, con despliegue en Linux, DigitalOcean y Docker.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3">
+                <a class="inline-block bg-white text-gray-900 font-medium px-5 py-3 rounded-lg hover:bg-gray-100 text-center" href="{% url 'app_users:login' %}">Ver proyecto</a>
+                <a class="inline-block border border-white text-white font-medium px-5 py-3 rounded-lg hover:bg-white hover:bg-opacity-10 text-center" href="{% url 'app_users:login' %}">Ingresar al panel</a>
+            </div>
+        </div>
+        <div class="w-full lg:w-4/12 lg:ml-auto">
+            <div class="bg-white text-gray-900 rounded-2xl p-4 shadow-sm">
+                <h2 class="text-base font-semibold mb-3">Tecnologías destacadas</h2>
+                <ul class="list-none mb-0">
+                    <li class="mb-2">Django y Python para aplicaciones robustas</li>
+                    <li class="mb-2">PostgreSQL para gestión de datos</li>
+                    <li class="mb-2">Linux, DigitalOcean y Docker para despliegue</li>
+                    <li class="mb-0">PHP y WordPress para sitios y contenidos</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

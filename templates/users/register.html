@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if admin_mode %}Nuevo usuario{% else %}Registro{% endif %} | Autenticación Django{% endblock %}
+
+{% block content %}
+<div class="flex justify-center">
+    <div class="w-full max-w-lg">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100">
+            <div class="p-6">
+                <h1 class="text-lg font-semibold mb-4 text-center">{% if admin_mode %}Registrar nuevo usuario{% else %}Crear cuenta{% endif %}</h1>
+                <form method="post" novalidate>
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="flex flex-wrap -mx-2">
+                        <div class="w-full md:w-1/2 px-2 mb-4">
+                            <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Nombres</label>
+                            {{ form.first_name }}
+                            {% for error in form.first_name.errors %}
+                                <div class="text-red-500 text-sm mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="w-full md:w-1/2 px-2 mb-4">
+                            <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Apellidos</label>
+                            {{ form.last_name }}
+                            {% for error in form.last_name.errors %}
+                                <div class="text-red-500 text-sm mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
+                        {{ form.email }}
+                        {% for error in form.email.errors %}
+                            <div class="text-red-500 text-sm mt-1">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                    {% if admin_mode %}
+                    <div class="flex flex-wrap -mx-2">
+                        <div class="w-full md:w-1/2 px-2 mb-4">
+                            <label for="{{ form.occupation.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Ocupación</label>
+                            {{ form.occupation }}
+                            {% for error in form.occupation.errors %}
+                                <div class="text-red-500 text-sm mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="w-full md:w-1/2 px-2 mb-4">
+                    {% else %}
+                    <div class="flex flex-wrap -mx-2">
+                        <div class="w-full md:w-1/2 px-2 mb-4">
+                    {% endif %}
+                            <label for="{{ form.gender.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Género</label>
+                            {{ form.gender }}
+                            {% for error in form.gender.errors %}
+                                <div class="text-red-500 text-sm mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap -mx-2">
+                        <div class="w-full md:w-1/2 px-2 mb-4">
+                            <label for="{{ form.phone.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Celular</label>
+                            {{ form.phone }}
+                            {% for error in form.phone.errors %}
+                                <div class="text-red-500 text-sm mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="w-full md:w-1/2 px-2 mb-4">
+                            <label for="{{ form.date_birth.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Fecha de nacimiento</label>
+                            {{ form.date_birth }}
+                            {% for error in form.date_birth.errors %}
+                                <div class="text-red-500 text-sm mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap -mx-2">
+                        <div class="w-full md:w-1/2 px-2 mb-4">
+                            <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+                            {{ form.password1 }}
+                            {% for error in form.password1.errors %}
+                                <div class="text-red-500 text-sm mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="w-full md:w-1/2 px-2 mb-4">
+                            <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Confirmar contraseña</label>
+                            {{ form.password2 }}
+                            {% for error in form.password2.errors %}
+                                <div class="text-red-500 text-sm mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition mt-2" type="submit">{% if admin_mode %}Registrar usuario{% else %}Crear cuenta{% endif %}</button>
+                </form>
+
+                {% if not admin_mode %}
+                <p class="text-center mt-4 text-sm text-gray-600">
+                    ¿Ya tienes cuenta?
+                    <a class="text-blue-600 hover:text-blue-700" href="{% url 'app_users:login' %}">Inicia sesión</a>
+                </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

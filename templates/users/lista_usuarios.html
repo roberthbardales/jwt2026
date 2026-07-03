@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Usuarios | Autenticación Django{% endblock %}
+
+{% block content %}
+<div class="flex justify-center">
+    <div class="w-full max-w-4xl">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100">
+            <div class="p-6">
+                <h1 class="text-lg font-semibold mb-4">Usuarios del sistema</h1>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ocupación</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Género</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            {% for usuario in usuarios %}
+                                 <tr class="hover:bg-gray-50 {% if usuario.pk == request.user.pk %}bg-blue-50{% endif %}">
+                                    <td class="px-4 py-3 text-sm">
+                                        {{ usuario.first_name }} {{ usuario.last_name }}
+                                        {% if usuario.pk == request.user.pk %}
+                                            <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full ml-1 font-medium">Tú</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">{{ usuario.email }}</td>
+                                    <td class="px-4 py-3 text-sm">{{ usuario.get_occupation_display }}</td>
+                                    <td class="px-4 py-3 text-sm">{{ usuario.get_gender_display }}</td>
+                                    <td class="px-4 py-3 text-sm">
+                                        <a href="{% url 'app_users:user-detail' usuario.pk %}" class="inline-block px-3 py-1 text-xs bg-blue-600 text-white rounded-lg hover:bg-blue-700">Ver</a>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="5" class="px-4 py-3 text-sm text-gray-500">No hay usuarios registrados.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

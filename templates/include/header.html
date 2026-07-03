@@ -1,0 +1,38 @@
+<header class="bg-white border-b shadow-sm">
+    <nav class="py-3">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <a class="flex items-center gap-2 font-bold" href="{% url 'app_home:index' %}">
+                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-xl bg-blue-100 text-blue-600 font-extrabold">RB</span>
+                    <span>Sistema Web con Usuarios</span>
+                </a>
+                <button data-toggle="navbar" data-target="mainNavbar" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none" type="button">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="hidden lg:block mt-3 lg:mt-0" id="mainNavbar">
+                <div class="flex flex-col lg:flex-row items-start lg:items-center justify-end gap-2">
+                    <a class="px-3 py-2 text-gray-700 hover:text-gray-900 rounded-lg" href="{% url 'app_home:index' %}">Inicio</a>
+
+                    {% if request.user.is_authenticated %}
+                    {% if request.user.occupation == '0' %}
+                    <a class="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50" href="{% url 'app_users:user-list' %}">Usuarios</a>
+                    <a class="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50" href="{% url 'app_users:register' %}">Nuevo usuario</a>
+                    {% endif %}
+
+                    <a class="px-3 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700" href="{% url 'app_users:dashboard' %}">Perfil</a>
+                    <form action="{% url 'app_users:logout' %}" method="post" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="px-3 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 cursor-pointer">Salir</button>
+                    </form>
+                    {% else %}
+                    <a class="px-4 py-2 text-sm border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50" href="{% url 'app_users:login' %}">Ingresar</a>
+                    <a class="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700" href="{% url 'app_users:register' %}">Registrarse</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
